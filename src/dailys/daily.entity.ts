@@ -1,4 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Source } from "src/sources/source.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
+
 
 @Entity()
 export class Daily {
@@ -12,10 +15,10 @@ export class Daily {
     content: string;
 
     @Column({
-        type: 'json',
-        nullable: true,
+        type: 'int',
+        nullable: false
     })
-    sourceList?: string;
+    wordTotal: number;
 
     @Column({
         type: 'varchar',
@@ -38,11 +41,8 @@ export class Daily {
     })
     latLon?: string;
 
-    @Column({
-        type: 'int',
-        nullable: false
-    })
-    wordTotal: number;
+    @OneToOne(()=>Source,(m)=>m.daily)
+    sources:Source
 
     @CreateDateColumn()
     createdTime: Date;

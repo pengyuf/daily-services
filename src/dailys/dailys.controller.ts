@@ -1,24 +1,40 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { DailysService } from './providers/dailys.service';
 
 @Controller('dailys')
 export class DailysController {
-    @Get()
-    public getDailys() {
-        return `获取日记`
-    }
+     constructor(
+          private readonly dailysService: DailysService
+     ) { }
 
-    @Get('details')
-    public getDailyById(@Param('id') id:number){
-         return `获取日记详情`
-    }
+     @Get('list')
+     public findAll() {
+          return '获取全部'
+          // return this.dailysService.findAll()
+     }
 
-    @Post()
-    public addDaily(@Body() addDailyDto:any){
-         return `增加日记`
-    }
+     // @Get('detail')
+     // public findOne(@Query() query: any) {
+     //      console.log('query',query)
+     //      return this.dailysService.findOne(query)
+     // }
 
-    @Delete()
-    public delDaily(@Param('id') id:number){
-         return `删除日记`
-    }
+     // @Post('add')
+     // public addOne(
+     //      @Body() dailyDto: any,
+     // ) {
+     //      return this.dailysService.addOne(dailyDto)
+     // }
+
+     // @Put('update')
+     // public updateOne(
+     //      @Body() dailyDto: any
+     // ) {
+     //      return this.dailysService.updateOne(dailyDto)
+     // }
+
+     // @Delete('del')
+     // public delOne(@Query() query: any) {
+     //      return this.dailysService.delOne(query)
+     // }
 }
