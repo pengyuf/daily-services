@@ -9,9 +9,11 @@ import { Source } from './sources/source.entity';
 import { UsersModule } from './users/users.module';
 import { SorucesModule } from './sources/sources.module';
 import { SysMiddleware } from './middlewares/sys.middleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     DailysModule,
     UsersModule,
     SorucesModule,

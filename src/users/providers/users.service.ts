@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable, RequestTimeoutException } from "@nestjs/common";
+import { BadRequestException, HttpException, Injectable, RequestTimeoutException } from "@nestjs/common";
 import { UserDto } from "../dtos/user.dto";
 import { Repository } from "typeorm";
 import { User } from "../user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+
 
 @Injectable()
 export class UsersService {
@@ -11,7 +12,24 @@ export class UsersService {
         private userRepository: Repository<User>,
     ) { }
 
-    async findAll(){
+    async findOne(username: string) {
+        let user;
+
+        try {
+            user = await this.userRepository.findOne({
+                where: { username }
+            })
+        } catch (error) {
+            throw new BadRequestException('用户不存在')
+        }
+
+        if (!user) {
+            throw new BadRequestException('用户不存在')
+        }
+        return user
+    }
+
+    async findAll() {
         const list = this.userRepository.find()
         return list
     }
@@ -39,7 +57,7 @@ export class UsersService {
         try {
             newUser = await this.userRepository.save(newUser)
         } catch (error) {
-           throw new BadRequestException('用户创建失败')
+            throw new BadRequestException('用户创建失败')
         }
 
         return newUser
