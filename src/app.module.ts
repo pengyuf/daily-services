@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DailysModule } from './dailys/dailys.module';
@@ -8,6 +8,7 @@ import { User } from './users/user.entity';
 import { Source } from './sources/source.entity';
 import { UsersModule } from './users/users.module';
 import { SorucesModule } from './sources/sources.module';
+import { SysMiddleware } from './middlewares/sys.middleware';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { SorucesModule } from './sources/sources.module';
     UsersModule,
     SorucesModule,
     TypeOrmModule.forRoot({
-      entities: [Daily,User,Source],
+      entities: [Daily, User, Source],
       type: 'postgres',
       host: 'localhost',
       port: 5432,
@@ -28,4 +29,9 @@ import { SorucesModule } from './sources/sources.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+        // consumer.apply(SysMiddleware).forRoutes('*') // 匹配所有的路径
+        consumer.apply(SysMiddleware).forRoutes({path:'/dailys/list',method:RequestMethod.GET}) // 匹配某个路径
+  }
+}

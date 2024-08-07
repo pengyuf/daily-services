@@ -11,6 +11,11 @@ export class UsersService {
         private userRepository: Repository<User>,
     ) { }
 
+    async findAll(){
+        const list = this.userRepository.find()
+        return list
+    }
+
     async addOne(useDto: UserDto) {
         let existingUser = null
 

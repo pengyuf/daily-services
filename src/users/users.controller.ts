@@ -10,6 +10,11 @@ export class UsersController {
 
     }
 
+    @Get()
+    public findAll() {
+        return this.usersService.findAll()
+    }
+
     @Post()
     public addOne(@Body() userDto: UserDto) {
         return this.usersService.addOne(userDto)
