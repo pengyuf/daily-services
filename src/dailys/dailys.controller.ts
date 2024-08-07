@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { DailysService } from './providers/dailys.service';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('dailys')
+@UseGuards(AuthGuard)
 export class DailysController {
      constructor(
           private readonly dailysService: DailysService
