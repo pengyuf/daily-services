@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.services';
-import { AuthGuard } from './auth.guard';
+import { UserDto } from 'src/users/dtos/user.dto';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -8,15 +9,15 @@ export class AuthController {
         private authService: AuthService
     ) { }
 
-    @HttpCode(HttpStatus.OK)
+    @Public()
     @Post('login')
-    signIn(@Body() signInDto: any) {
-        return this.authService.signIn(signInDto.username, signInDto.password)
+    signIn(@Query() userDto: UserDto) {
+        return this.authService.signIn(userDto.username, userDto.password)
     }
 
-    @UseGuards(AuthGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user
+    @Public()
+    @Post('register')
+    register(@Body() userDto: UserDto) {
+        return this.authService.register(userDto)
     }
 }

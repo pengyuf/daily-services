@@ -17,13 +17,14 @@ export class UsersController {
         return this.usersService.findAll()
     }
 
+
     @Get('detail')
     public findOne(@Query() query: any) {
         return this.usersService.findOne(query.username)
     }
 
-    @Post()
-    public addOne(@Body() userDto: UserDto) {
-        return this.usersService.addOne(userDto)
+    @Post('add')
+    public addUser(@Body() userDto: UserDto) {
+        return this.usersService.addUser(userDto)
     }
 }

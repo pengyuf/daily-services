@@ -1,4 +1,4 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { CallHandler, ExecutionContext, HttpStatus, Injectable, NestInterceptor } from "@nestjs/common";
 import { Observable, map } from "rxjs";
 
 interface Response<T> {
@@ -15,8 +15,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
             map(data => {
                 console.log('进入全局响应拦截器返回内容后')
                 return {
-                    statusCode: 0,
-                    path: request.url,
+                    statusCode: HttpStatus.OK,
                     message: '请求成功',
                     data: data
                 }

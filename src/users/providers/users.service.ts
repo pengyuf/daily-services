@@ -12,6 +12,11 @@ export class UsersService {
         private userRepository: Repository<User>,
     ) { }
 
+    async findAll() {
+        const list = this.userRepository.find()
+        return list
+    }
+
     async findOne(username: string) {
         let user;
 
@@ -29,23 +34,14 @@ export class UsersService {
         return user
     }
 
-    async findAll() {
-        const list = this.userRepository.find()
-        return list
-    }
-
-    async addOne(useDto: UserDto) {
+    async addUser(useDto: UserDto) {
         let existingUser = null
-
-
         try {
             existingUser = await this.userRepository.findOne({
                 where: { username: useDto.username }
             })
         } catch (error) {
-            throw new RequestTimeoutException('发生错误请稍后再试', {
-                description: '数据库连接错误'
-            })
+            throw new BadRequestException('创建失败')
         }
 
         if (existingUser) {
