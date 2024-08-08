@@ -4,7 +4,7 @@ import { UsersService } from './providers/users.service';
 import { ResponseInterceptor } from 'src/interceptors/response.interceptor';
 
 @Controller('users')
-@UseInterceptors(ResponseInterceptor)
+// @UseInterceptors(ResponseInterceptor)
 export class UsersController {
     constructor(
         private readonly usersService: UsersService

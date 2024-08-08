@@ -15,7 +15,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
             map(data => {
                 console.log('进入全局响应拦截器返回内容后')
                 return {
-                    statusCode: HttpStatus.OK,
+                    status: HttpStatus.OK,
                     message: '请求成功',
                     data: data
                 }

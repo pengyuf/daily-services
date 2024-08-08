@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,8 @@ async function bootstrap() {
       enableImplicitConversion: true, // pipe将数据隐式转换
     }
   }))
+  app.useGlobalInterceptors(new ResponseInterceptor())
+  app.enableCors(); // 跨域处理
   await app.listen(3000);
 }
 bootstrap();

@@ -11,7 +11,8 @@ export class AuthController {
 
     @Public()
     @Post('login')
-    signIn(@Query() userDto: UserDto) {
+    signIn(@Body() userDto: UserDto) {
+        console.log('login',userDto)
         return this.authService.signIn(userDto.username, userDto.password)
     }
 
