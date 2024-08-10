@@ -13,7 +13,7 @@ import { AuthGuard } from './auth.guard';
             global: true,
             secret: jwtConstants.secret,
             signOptions: {
-                expiresIn: '60s' // token有效时间
+                expiresIn: '3600s' // token有效时间
             }
         })
     ],

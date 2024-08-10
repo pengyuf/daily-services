@@ -10,9 +10,11 @@ import { UsersModule } from './users/users.module';
 import { SorucesModule } from './sources/sources.module';
 import { SysMiddleware } from './middlewares/sys.middleware';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
+    UploadModule,
     AuthModule,
     DailysModule,
     UsersModule,
