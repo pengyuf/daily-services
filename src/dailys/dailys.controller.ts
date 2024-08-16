@@ -14,7 +14,6 @@ export class DailysController {
 
      @Get('detail')
      public findOne(@Query() query: any) {
-          console.log('query',query)
           return this.dailysService.findOne(query)
      }
 
@@ -25,7 +24,7 @@ export class DailysController {
           return this.dailysService.addOne(dailyDto)
      }
 
-     @Put('update')
+     @Post('update')
      public updateOne(
           @Body() dailyDto: any
      ) {
